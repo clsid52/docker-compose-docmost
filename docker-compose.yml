@@ -15,18 +15,19 @@ services:
       - app-network
 
   docmost:
-    image: docmost/docmost:latest # ver 0.7.0, nodejs 21.7.3, Alpine ??
+    image: docmost/docmost:0.6
     container_name: docmost
     depends_on:
       - db
       - redis
     restart: unless-stopped
     environment:
-      APP_URL: 'http://localhost:81' # Change port 3000 to 81 , to validate
-      APP_SECRET: 'auV5TfdY3yF69RJM56wPT' # picked from another docker-compose yml 
-      DATABASE_URL: 'postgresql://docmost:6jBa6YM5@db:5432/docmost?schema=public' # To validate if this connection is OK
+      APP_URL: 'http://localhost:3000'
+      APP_SECRET: 'auV5TfdY3yF69RJM56wPT' 
+      DATABASE_URL: 'postgresql://docmost:6jBa6YM5@db:5432/docmost?schema=public' 
+      REDIS_URL: 'redis://redis:6379'
     ports:
-      - "3000:81"
+      - "3000:3000"
     volumes:
       - docmost:/app/data/storage
     networks:
@@ -34,6 +35,7 @@ services:
 
   redis:
     image: redis:7.2-alpine
+    container_name: redis
     restart: unless-stopped
     volumes:
       - redis_data:/data
