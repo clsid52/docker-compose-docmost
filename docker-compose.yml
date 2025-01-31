@@ -1,4 +1,4 @@
-version: '3.9'  # Docker 27.5.1 / Ubuntu 24.10
+version: '3.9'  
 
 services:
   db:
@@ -8,7 +8,7 @@ services:
     environment:
       POSTGRES_DB: docmost
       POSTGRES_USER: docmost
-      POSTGRES_PASSWORD: 6jBa6YM5 # generated with .lastpass
+      POSTGRES_PASSWORD: ${DOCMOST_DB_PASSWORD}
     volumes:
       - db_data:/var/lib/postgresql/data
     networks:
@@ -24,7 +24,7 @@ services:
     environment:
       APP_URL: 'http://localhost:3000'
       APP_SECRET: 'auV5TfdY3yF69RJM56wPT' 
-      DATABASE_URL: 'postgresql://docmost:6jBa6YM5@db:5432/docmost?schema=public' 
+      DATABASE_URL: 'postgresql://docmost:${DOCMOST_DB_PASSWORD}@db:5432/docmost?schema=public' 
       REDIS_URL: 'redis://redis:6379'
     ports:
       - "3000:3000"
