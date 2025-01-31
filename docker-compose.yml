@@ -23,7 +23,7 @@ services:
     restart: unless-stopped
     environment:
       APP_URL: 'http://localhost:3000'
-      APP_SECRET: 'auV5TfdY3yF69RJM56wPT' 
+      APP_SECRET: ${DOCMOST_SECRET} 
       DATABASE_URL: 'postgresql://docmost:${DOCMOST_DB_PASSWORD}@db:5432/docmost?schema=public' 
       REDIS_URL: 'redis://redis:6379'
     ports:
